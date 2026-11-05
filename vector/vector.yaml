@@ -11,7 +11,7 @@ sinks:
     inputs:
       - "nodes_proxmox"
 
-    uri: "http://localhost:8000/detect"
+    uri: "http://app:8000/detect"
 
     method: "post"
 
