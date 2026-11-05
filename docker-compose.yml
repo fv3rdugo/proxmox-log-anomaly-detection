@@ -40,19 +40,19 @@ services:
       start_period: 30s
 
   # ==========================================================
-  # 2. PYTHON ANOMALY DETECTOR
+  # 2. APP ANOMALY DETECTOR
   # ==========================================================
 
-  python-anomaly:
-    build: ./python-anomaly
-    container_name: python-anomaly-detector
+  app:
+    build: ./app
+    container_name: app
 
     ports:
       - "8000:8000"
 
     volumes:
-      - ./python-anomaly/model:/app/model
-      - ./python-anomaly/drain:/app/drain
+      - ./app/model:/app/model
+      - ./app/drain:/app/drain
 
     depends_on:
       opensearch:
@@ -72,7 +72,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
     depends_on:
-      - python-anomaly
+      - app
 
     ports:
       - "8383:8383"

@@ -6,7 +6,7 @@ Real-time, AI-driven log anomaly detection architecture for Proxmox VE (PVE) clu
 
 ## 1. Executive Overview
 
-Managing large-scale Proxmox VE hypervisor clusters generates high-volume log streams daily across systemd journald, corosync cluster engine, PVE API proxies, ZFS storage sub-systems, and kernel events. Traditional rule-based alerting suffers from alert fatigue, high maintenance overhead, and an inability to detect zero-day or subtle multi-variable operational anomalies.
+Managing large-scale [Proxmox VE](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview) hypervisor clusters generates high-volume log streams daily across systemd journald, corosync cluster engine, PVE API proxies, ZFS storage sub-systems, and kernel events. Traditional rule-based alerting suffers from alert fatigue, high maintenance overhead, and an inability to detect zero-day or subtle multi-variable operational anomalies.
 
 This project delivers an end-to-end, real-time observability pipeline that ingests raw log streams from Proxmox VE nodes, parses unstructured text into structured templates, extracts temporal and statistical feature vectors, scores anomalies using an unsupervised Isolation Forest model, and visualizes raw anomalous logs in Grafana with root-cause auditing capabilities.
 
@@ -44,12 +44,12 @@ The architecture follows a decoupled, containerized streaming pipeline designed 
 
 ### Component Roles
 
-* **Vector Agent (Proxmox Node)**: Runs as a lightweight system service (`vector.service`), capturing `journald` entries (kernel, pveproxy, corosync, pvedaemon) and streaming them via gRPC to the central sink.
-* **FastAPI Backend (`python-anomaly-detector`)**: A high-performance Python 3.12 service executing the dual-stage ML pipeline and batching output into OpenSearch via `_bulk` APIs.
-* **Drain3 Template Miner**: Performs streaming log template extraction, separating static log structures from variable parameters.
-* **Isolation Forest Model**: An unsupervised machine learning algorithm (`n_estimators=200`, `contamination=0.05`) that isolates rare anomalies based on decision tree path lengths.
-* **OpenSearch**: Stores enriched log documents containing raw messages, parsed templates, feature vectors, anomaly scores, and anomaly level flags.
-* **Grafana**: Serves dashboard `v1`, featuring real-time stat counters, anomaly score timelines, and raw log inspection tables.
+* **[Vector](https://vector.dev/) Agent (Proxmox Node)**: Runs as a lightweight system service (`vector.service`), capturing `journald` entries (kernel, pveproxy, corosync, pvedaemon) and streaming them via gRPC to the central sink.
+* **[FastAPI](https://github.com/fastapi/fastapi) Backend (`python-anomaly-detector`)**: A high-performance Python 3.12 service executing the dual-stage ML pipeline and batching output into OpenSearch via `_bulk` APIs.
+* **[Drain3](https://github.com/logpai/Drain3) Template Miner**: Performs streaming log template extraction, separating static log structures from variable parameters.
+* **[Isolation Forest Model](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)**: An unsupervised machine learning algorithm (`n_estimators=200`, `contamination=0.05`) that isolates rare anomalies based on decision tree path lengths.
+* **[OpenSearch](https://opensearch.org/)**: Stores enriched log documents containing raw messages, parsed templates, feature vectors, anomaly scores, and anomaly level flags.
+* **[Grafana](https://github.com/grafana/)**: Serves dashboard `v1`, featuring real-time stat counters, anomaly score timelines, and raw log inspection tables.
 
 ---
 
@@ -208,4 +208,4 @@ Check the **Raw Log Audit Table** in Grafana under the **Last 5 minutes** view t
 
 ## 9. License
 
-Distributed under the Affero GPL v3 License. See `LICENSE` for more information.
+Distributed under the Affero GPL v3 License. See [LICENSE](https://github.com/fv3rdugo/proxmox-log-anomaly-detection/blob/main/LICENSE) for more information.
