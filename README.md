@@ -45,7 +45,7 @@ The architecture follows a decoupled, containerized streaming pipeline designed 
 ### Component Roles
 
 * **[Vector](https://vector.dev/) Agent (Proxmox Node)**: Runs as a lightweight system service (`vector.service`), capturing `journald` entries (kernel, pveproxy, corosync, pvedaemon) and streaming them via gRPC to the central sink.
-* **[FastAPI](https://github.com/fastapi/fastapi) Backend (`python-anomaly-detector`)**: A high-performance Python 3.12 service executing the dual-stage ML pipeline and batching output into OpenSearch via `_bulk` APIs.
+* **[FastAPI](https://fastapi.tiangolo.com/) Backend (`python-anomaly-detector`)**: A high-performance Python 3.12 service executing the dual-stage ML pipeline and batching output into OpenSearch via `_bulk` APIs.
 * **[Drain3](https://github.com/logpai/Drain3) Template Miner**: Performs streaming log template extraction, separating static log structures from variable parameters.
 * **[Isolation Forest Model](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html)**: An unsupervised machine learning algorithm (`n_estimators=200`, `contamination=0.05`) that isolates rare anomalies based on decision tree path lengths.
 * **[OpenSearch](https://opensearch.org/)**: Stores enriched log documents containing raw messages, parsed templates, feature vectors, anomaly scores, and anomaly level flags.

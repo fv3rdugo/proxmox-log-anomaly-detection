@@ -68,7 +68,7 @@ services:
     container_name: vector-agent
 
     volumes:
-      - ~/src/proxmox-log-anomaly-detection/vector/vector.yaml:/etc/vector/vector.yaml:ro
+      - ./vector/vector.yaml:/etc/vector/vector.yaml:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
     depends_on:
