@@ -1,0 +1,30 @@
+sources:
+  nodes_proxmox:
+    type: "vector"
+    address: "0.0.0.0:9000"
+    version: "2"
+
+sinks:
+  enviar_a_python:
+    type: "http"
+
+    inputs:
+      - "nodes_proxmox"
+
+    uri: "http://localhost:8000/detect"
+
+    method: "post"
+
+    encoding:
+      codec: "json"
+
+    batch:
+      max_events: 20
+      timeout_secs: 1
+
+    request:
+      timeout_secs: 30
+
+    healthcheck:
+      enabled: true
+

@@ -1,0 +1,112 @@
+services:
+
+  # ==========================================================
+  # 1. OPENSEARCH
+  # ==========================================================
+
+  opensearch:
+    image: opensearchproject/opensearch:2.12.0
+    container_name: opensearch-node
+
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g"
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD=passwdISs3cret!
+      - plugins.security.disabled=true
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+
+    ports:
+      - "9200:9200"
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -f http://localhost:9200/_cluster/health || exit 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  # ==========================================================
+  # 2. PYTHON ANOMALY DETECTOR
+  # ==========================================================
+
+  python-anomaly:
+    build: ./python-anomaly
+    container_name: python-anomaly-detector
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./python-anomaly/model:/app/model
+      - ./python-anomaly/drain:/app/drain
+
+    depends_on:
+      opensearch:
+        condition: service_healthy
+
+
+  # ==========================================================
+  # 3. VECTOR
+  # ==========================================================
+
+  vector:
+    image: timberio/vector:0.34.X-debian
+    container_name: vector-agent
+
+    volumes:
+      - ~/src/proxmox-log-anomaly-detection/vector/vector.yaml:/etc/vector/vector.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    depends_on:
+      - python-anomaly
+
+    ports:
+      - "8383:8383"
+      - "9000:9000"
+
+
+  # ==========================================================
+  # 4. GRAFANA
+  # ==========================================================
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-dashboard
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-opensearch-datasource
+
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+    depends_on:
+      - opensearch
+
+
+# ============================================================
+# VOLUMS
+# ============================================================
+
+volumes:
+
+  opensearch-data:
+
+  grafana-storage:
