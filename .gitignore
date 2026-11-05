@@ -8,8 +8,6 @@ ENV/
 .env
 
 # Trained Models & Drain3 State
-model/
-drain/
 *.joblib
 warmup_data.json
 drain_state.bin
