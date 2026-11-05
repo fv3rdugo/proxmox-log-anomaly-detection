@@ -145,13 +145,12 @@ sources:
 
 sinks:
   enviar_al_central:
-    type: "vector"
+    type: "http"
     inputs:
       - "journal_pve"
-    address: "SERVER_IP:9000"
-    version: "2"
-    healthcheck:
-      enabled: false
+    uri: "http://SERVER_IP:9000"
+    encoding:
+      codec: "json"
 ```
 
 Enable and start the service:
