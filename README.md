@@ -136,7 +136,7 @@ chmod +x start-stack.sh
 ```
 
 ### Step 2: Configure Vector Agent on Proxmox VE Nodes
-Install Vector on each PVE host and configure `/etc/vector/vector.yaml`:
+[Install Vector](https://vector.dev/docs/setup/installation/package-managers/apt/) on each PVE host and configure `/etc/vector/vector.yaml`:
 
 ```yaml
 sources:
