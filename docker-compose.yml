@@ -99,6 +99,21 @@ services:
     depends_on:
       - opensearch
 
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.12.0
+    container_name: opensearch-dashboards
+
+    ports:
+      - "5601:5601"
+
+    environment:
+      - OPENSEARCH_HOSTS=["http://opensearch:9200"]
+      # WARNING: Disabling security is ONLY for development and testing purposes.
+      # In production, it is strongly recommended to enable security, authentication, and TLS.
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+
+    depends_on:
+      - opensearch
 
 # ============================================================
 # VOLUMS
