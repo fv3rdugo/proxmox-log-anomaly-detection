@@ -205,6 +205,14 @@ Check the **Raw Log Audit Table** in Grafana under the **Last 5 minutes** view t
 
 ---
 
-## 9. License
+## 9. Screenshots
+
+![Grafana dashboard example](screenshots/grafana-dashboard.png)
+
+![Opensearh dashboard example](screenshots/opensearch-dashboard.png)
+
+---
+
+## 10. License
 
 Distributed under the Affero GPL v3 License. See [LICENSE](https://github.com/fv3rdugo/proxmox-log-anomaly-detection/blob/main/LICENSE) for more information.
