@@ -1,5 +1,16 @@
 # Proxmox VE Real-Time Log Anomaly Detection
 
+[![Proxmox VE](https://img.shields.io/badge/Proxmox_VE-E57000?style=for-the-badge&logo=proxmox&logoColor=white)](https://www.proxmox.com/en/proxmox-virtual-environment/overview)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Drain3](https://img.shields.io/badge/Drain3-239120?style=for-the-badge&logo=python&logoColor=white)](https://github.com/logpai/Drain3)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-F79939?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
+[![Vector](https://img.shields.io/badge/Vector-000000?style=for-the-badge&logo=vector&logoColor=white)](https://vector.dev/)
+[![OpenSearch](https://img.shields.io/badge/OpenSearch-005EB8?style=for-the-badge&logo=opensearch&logoColor=white)](https://opensearch.org/)
+[![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)](https://grafana.com/)
+[![Docker Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+
 Real-time, AI-driven log anomaly detection architecture for Proxmox VE (PVE) clusters utilizing Vector, Drain3 template mining, Scikit-Learn Isolation Forest, OpenSearch, and Grafana.
 
 ---
